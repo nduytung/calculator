@@ -1,24 +1,27 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "../css/BaseCss.css";
 
 class UsualBtn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      length: this.props.length,
       value: this.props.value,
+      width: this.props.width,
       color: this.props.color,
+      equal: this.props.equal,
       textColor: this.props.textColor,
     };
   }
 
   render() {
-    const { value, color, textColor } = this.state;
+    const { value, width, color, textColor } = this.state;
     return (
-      <div className={this.props.className}>
+      <div className={`col-${width} p-0 justify-content-center`}>
         <button
           type="button"
-          className="btn  border-0  h1 mt-2 mb-2 lead"
+          className={`btn d-block border-0  h1   lead `}
+          onClick={() => this.props.updateState(value)}
           style={{
             borderRadius: "25px",
             height: "50px",

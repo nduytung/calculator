@@ -1,29 +1,55 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import UsualBtn from "./UsualBtn";
 import Display from "./Display";
+import "../css/BaseCss.css";
+import UsualBtn from "./UsualBtn";
+import ClearDataBtn from "./ClearDataBtn";
+var stringMath = require("string-math");
+
 class Base extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       extendVal: ["(", ")", ".", "^"],
       numberVal: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
-      featureVal: [" + ", " - ", " x ", " / "],
-      displayState: [],
+      featureVal: ["+", "-", "*", "/"],
+      displayState: "",
+      answer: 0,
     };
   }
 
+  //------------- HANDLE FUNCTIONS ---------------------------
+
+  // update the value of the screen on button is clicked
+  updateDisplayState = (newState) => {
+    this.setState({ displayState: this.state.displayState + newState });
+  };
+
+  //handle the output on user click on "="
+  handleCalculating = () => {
+    let input = this.state.displayState;
+    let answer = stringMath(input);
+    this.setState({ answer: answer });
+  };
+
+  //handle when user click on clear data
+  handleClearData = () => {
+    this.setState({ displayState: " ", answer: 0 });
+  };
+
+  //function to render multiple alike components
+  //push everything u want to render into an array, and return it
   renderBtn = (list, width, color, equal = 0, textColor = "white") => {
     let arr = [];
     list.map((item) => {
       arr.push(
         <UsualBtn
-          className={`col-${width} p-0 justify-content-between`}
-          length="1"
           value={item}
+          width={width}
           color={color}
+          equal={equal}
           textColor={textColor}
-          onClick={this.handleDisplay}
+          updateState={this.updateDisplayState}
         />
       );
     });
@@ -31,42 +57,39 @@ class Base extends React.Component {
     if (equal == 1)
       arr.push(
         <UsualBtn
-          className={`col-8 p-0 justify-content-between`}
-          length="2"
-          value="="
+          value={"="}
+          width={8}
           color={color}
           textColor={textColor}
+          updateState={this.handleCalculating}
         />
       );
+
     return arr;
   };
 
-  handleDisplay = (value) => {
-    let immeState = value;
-    this.setState({ displayState: this.state.displayState + immeState });
-  };
-  render() {
-    const { extendVal, numberVal, featureVal, displayState } = this.state;
-    return (
-      <div
-        style={{ width: "350px", height: "600px", borderRadius: "15px" }}
-        className="bg-dark container p-4 mt-3"
-      >
-        {/* MÀN HÌNH HIỂN THỊ  */}
-        <Display answer="0000000" displayContent={displayState} />
+  //-----------------------------------------------------------
 
-        {/* KHU VỰC CÁC PHÍM */}
+  render() {
+    const {
+      extendVal,
+      numberVal,
+      featureVal,
+      displayState,
+      answer,
+    } = this.state;
+    return (
+      <div className="calc-wrapper bg-dark p-4 m-auto mt-3">
+        <Display displayState={displayState} answer={answer} />
         <div className="row col-12 m-0 p-0">
-          {/* PHÍM CHỨC NĂNG  */}
+          <ClearDataBtn handleClearData={this.handleClearData} />
           {this.renderBtn(extendVal, "3", "#73d673")}
         </div>
         <div className="row p-0 m-0 justify-content-between">
-          <div className="row col-9  m-0 p-0">
-            {/* PHÍM SỐ VÀ DÂU = */}
+          <div className="row col-9 m-0 p-0">
             {this.renderBtn(numberVal, "4", "white", 1, "black")}
           </div>
           <div className="col-3 m-0 p-0">
-            {/* CÁC PHÍM TÍNH TOÁN CƠ BẢN */}
             {this.renderBtn(featureVal, "12", "darkorange")}
           </div>
         </div>

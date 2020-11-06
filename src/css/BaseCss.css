@@ -1,0 +1,18 @@
+.calc-wrapper {
+  width: 350px;
+  height: 600px;
+  border-radius: 15px;
+}
+
+.display-wrapper {
+  width: 100%;
+  height: 200px;
+}
+
+.display-fomula {
+  height: 120px;
+}
+
+.display-answer {
+  height: 80px;
+}

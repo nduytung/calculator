@@ -1,33 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
+import "../css/BaseCss.css";
 class Display extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      displayContent: this.props.displayContent,
-      answer: this.props.answer,
-    };
   }
 
   render() {
-    const { answer, displayContent } = this.state;
     return (
-      <div
-        style={{ width: "100%", height: " 200px" }}
-        className="bg-dark text-white p-3 lead"
-      >
-        <div
-          style={{ height: "120px" }}
-          className="text-left justify-content-center"
-        >
-          {displayContent}
+      <div className="bg-dark text-white p-3 lead display-wrapper">
+        <div className="text-left justify-content-center display-fomula">
+          {this.props.displayState}
         </div>
-        <div
-          style={{ height: "80px" }}
-          className="text-right justify-content-center h1"
-        >
-          {answer}
+        <div className="text-right justify-content-center h1 display-answer">
+          {this.props.answer}
         </div>
       </div>
     );
