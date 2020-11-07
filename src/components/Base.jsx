@@ -1,9 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import Display from "./Display";
 import "../css/BaseCss.css";
+import Display from "./Display";
+import ReactDOM from "react-dom";
 import UsualBtn from "./UsualBtn";
 import ClearDataBtn from "./ClearDataBtn";
+
 var stringMath = require("string-math");
 
 class Base extends React.Component {

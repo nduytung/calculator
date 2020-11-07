@@ -1,6 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import "../css/BaseCss.css";
+import ReactDOM from "react-dom";
 
 class ClearDataBtn extends React.Component {
   constructor(props) {
